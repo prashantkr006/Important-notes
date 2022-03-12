@@ -104,3 +104,28 @@ export default function App() {
 ```
 * The one property in the config object above is ```baseURL```, to which you pass the endpoint.</br>
 The ```.create()``` function returns a newly created instance, which in this case is called client.
+
+## Use the Async-Await Syntax with Axios
+```
+const client = axios.create({
+  baseURL: "https://jsonplaceholder.typicode.com/posts" 
+});
+```
+```
+export default function App() {
+  const [post, setPost] = React.useState(null);
+  React.useEffect(() => {
+    async function getPost() {
+      const response = await client.get("/1");
+      setPost(response.data);
+    }
+    getPost();
+  }, []);
+```
+```
+async function deletePost() {
+    await client.delete("/1");
+    alert("Post deleted!");
+    setPost(null);
+  }
+```
